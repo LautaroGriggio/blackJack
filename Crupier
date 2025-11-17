@@ -1,0 +1,23 @@
+package jugadores;
+
+import cartas.Carta;
+
+public class Crupier extends Jugador {
+
+    public Crupier() {
+        super("crupier", 0); 
+    }
+
+    public boolean debePedirCarta() {
+        return calcularPuntos() < 17;
+    }
+
+    @Override
+    public void mostrarMano() {
+        System.out.println("mano del crupier:");
+        for (Carta carta : getMano()) {
+            System.out.println(carta);
+        }
+        System.out.println("puntos: " + calcularPuntos());
+    }
+}
