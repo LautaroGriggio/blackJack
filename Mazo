@@ -1,0 +1,28 @@
+package cartas;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+
+public class Mazo {
+    private final ArrayList<Carta> cartas = new ArrayList<>();
+
+    public Mazo() {
+        for (Palo palo : Palo.values()) {
+            for (Puntaje puntaje : Puntaje.values()) {
+                cartas.add(new Carta(puntaje, palo));
+            }
+        }
+        Collections.shuffle(cartas);
+    }
+
+    public Carta repartirCarta() {
+        if (!cartas.isEmpty()) {
+            return cartas.remove(0);
+        } else {
+            System.out.println("No quedan cartas en el mazo");
+            return null;
+        }
+    }
+
+}
