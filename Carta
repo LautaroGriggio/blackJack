@@ -1,0 +1,26 @@
+package cartas;
+
+public class Carta {
+	
+
+	    private final Puntaje puntaje;  
+	    private final Palo palo;    
+
+	    public Carta(Puntaje puntaje, Palo palo) {
+	        this.puntaje = puntaje;
+	        this.palo = palo;
+	    }
+
+	    public Puntaje getPuntaje() {
+	        return puntaje;
+	    }
+
+	    public Palo getPalo() {
+	        return palo;
+	    }
+
+	    @Override
+	    public String toString() {
+	        return puntaje.getNombre() + " de " + palo;
+	    }
+	}
