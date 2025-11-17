@@ -1,0 +1,48 @@
+package jugadores;
+
+
+import java.util.Scanner;
+
+public class Usuario extends Jugador {
+
+    private int apuesta;
+    private Scanner s = new Scanner(System.in);
+
+    public Usuario() {
+        super("", 0); 
+    }
+
+    public void ingresarDatos() {
+        System.out.print("ingrese su nombre: ");
+        String nombre = s.nextLine();
+
+        
+        int dinero = utiles.IngreseEntero.ingresarEntero(s, "ingrese su dinero inicial: (minimo 10, maximo 10000000)", 10, 10000000);
+
+        setNombre(nombre);
+        setDinero(dinero);
+    }
+
+    public void realizarApuesta() {
+        boolean flag=false;
+
+        while(!flag) {
+        apuesta = utiles.IngreseEntero.ingresarEntero(s, "ingrese su apuesta: ", 10, 10000000);
+        
+        
+        if (apuesta > getDinero()) {
+            System.out.println("no podes apostar mas de lo que tenes.");
+            flag= false;
+        
+            
+        } else {
+            restarDinero(apuesta);
+            flag= true;
+        }
+        }
+    }
+
+    public int getApuesta() {
+        return apuesta;
+    }
+}
