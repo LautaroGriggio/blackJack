@@ -1,0 +1,86 @@
+package juego;
+
+import java.util.Scanner;
+import cartas.Mazo;
+import jugadores.Usuario;
+import jugadores.Crupier;
+
+public class Principal {
+
+    public static void main(String[] args) {
+
+        Scanner s = new Scanner(System.in);
+
+        Mazo mazo = new Mazo();
+        Usuario usuario = new Usuario();
+        Crupier crupier = new Crupier();
+
+        usuario.ingresarDatos();
+
+        usuario.realizarApuesta();
+
+        usuario.recibirCarta(mazo.repartirCarta());
+        usuario.recibirCarta(mazo.repartirCarta());
+
+        crupier.recibirCarta(mazo.repartirCarta());
+        crupier.recibirCarta(mazo.repartirCarta());
+
+        System.out.println("inicio, manos: ");
+        usuario.mostrarMano();
+        System.out.println("puntos: " + usuario.calcularPuntos());
+
+        System.out.println();
+        crupier.mostrarMano();
+
+        boolean sePlanto = false;
+
+        while (!sePlanto && usuario.calcularPuntos() < 21) {
+            System.out.println("\n");
+            int opcion = utiles.IngreseEntero.ingresarEntero(s, "quiere pedir carta? 0 = no    1 = si", 0, 1);
+            
+
+            if (opcion == 1) {
+                usuario.recibirCarta(mazo.repartirCarta());
+                usuario.mostrarMano();
+                System.out.println("Puntos: " + usuario.calcularPuntos());
+            } else {
+                sePlanto = true;
+            }
+        }
+        if (usuario.calcularPuntos() > 21) {
+            System.out.println("te pasaste, perdiste ");
+            return;
+        }
+
+  
+        System.out.println("va el crupier");
+
+        while (crupier.debePedirCarta()) {
+            crupier.recibirCarta(mazo.repartirCarta());
+            crupier.mostrarMano();
+            System.out.println();
+        }
+
+        
+        int puntosJugador = usuario.calcularPuntos();
+        int puntosCrupier = crupier.calcularPuntos();
+
+        System.out.println("final: ");
+        System.out.println("Jugador: " + puntosJugador);
+        System.out.println("Crupier: " + puntosCrupier);
+
+        if (puntosCrupier > 21 || puntosJugador > puntosCrupier) {
+            System.out.println("felicitaciones, ganaste");
+            usuario.agregarDinero(usuario.getApuesta() * 2);
+        } 
+        else if (puntosJugador == puntosCrupier) {
+            System.out.println("salio empate, se devuelve tu apuesta.");
+            usuario.agregarDinero(usuario.getApuesta());
+        }
+        else {
+            System.out.println("perdiste ");
+        }
+
+        System.out.println("Dinero final: " + usuario.getDinero());
+    }
+}
